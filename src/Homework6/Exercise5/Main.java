@@ -4,10 +4,22 @@ package Homework6.Exercise5;
 import java.util.*;
 
 public class Main {
+
+    private static int div(int kolichestvoOtgrujenogoTovara) {
+        if (kolichestvoOtgrujenogoTovara == 0) try {
+            throw new WrongKeyException("111");
+        } catch (WrongKeyException e) {
+            e.printStackTrace();
+        }
+        return kolichestvoOtgrujenogoTovara;
+
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        testMusicShop(sc);
-        createShopContent(sc);
+        List<MusicalInstrument> instruments = createShopContent(sc);
+        print(instruments);
+        testMusicShop(sc, instruments);
     }
 
     private static int getUserInput(Scanner sc, String massage) {
@@ -31,12 +43,12 @@ public class Main {
         return order;
     }
 
-    private static void testMusicShop(Scanner sc) {
+    private static void testMusicShop(Scanner sc, List<MusicalInstrument> instruments) {
         while (true) {
             try {
+//                List<MusicalInstrument> instruments = createShopContent(sc);
+//                print(instruments);
                 System.out.println("Введите колличество музыкальных инструментов (для заказа)");
-                List<MusicalInstrument> instruments = createShopContent(sc);
-                print(instruments);
                 MusicShop shop = new MusicShop("Музыкальный магазин", instruments);
                 int zakazanoGitar = getUserInput(sc, "Количество гитар");
                 int zakazanoPiano = getUserInput(sc, "Количество пианино");
@@ -48,11 +60,10 @@ public class Main {
                 System.out.println("_______________________");
                 print(shop.getMusicalInstruments());
 
-           /* }catch (WrongKeyException ex) {
-                System.out.println(ex.getMessage());*/
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
-            }break;
+            }
+            break;
         }
     }
 

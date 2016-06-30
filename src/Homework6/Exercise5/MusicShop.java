@@ -39,26 +39,37 @@ public class MusicShop {
             int kolichestvoVZakaze = strokaZakaza.getValue();
             int kolichestvoOtgrujenogoTovara = 0;
             String nazvanieZakazannogoInsrumenta = strokaZakaza.getKey();
-            try {
-                for (int index = musicalInstruments.size() - 1; index >= 0; index--) {
-                    MusicalInstrument instrumentVMagazine = musicalInstruments.get(index);
-                    if (nazvanieZakazannogoInsrumenta == instrumentVMagazine.getName() && kolichestvoVZakaze > kolichestvoOtgrujenogoTovara) {
-                        MusicalInstrument otgrujenijInstrument = musicalInstruments.remove(index);
-                        listOtgruzki.add(otgrujenijInstrument);
-                        kolichestvoOtgrujenogoTovara++;
-                        if (kolichestvoOtgrujenogoTovara == 0)
-                            throw new WrongKeyException("Ключ заказа должен быть другим");
-                    }
+            int count = 0;
+            for (MusicalInstrument instrument : musicalInstruments) {
+                if (instrument.getName().equals(nazvanieZakazannogoInsrumenta)) {
+                    count++;
                 }
-            }catch (WrongKeyException ex){
-                ex.printStackTrace();
-            }break;
+            }
+            if (kolichestvoVZakaze > count) {
+                try {
+                    throw new WrongKeyException("Товара не хватает!");
+                } catch (WrongKeyException e) {
+                    System.out.println(e.getWrongKey());
+                }
+            }
+            /*boolean flag = true;*/
+            for (int index = musicalInstruments.size() - 1; index >= 0; index--) {
+                MusicalInstrument instrumentVMagazine = musicalInstruments.get(index);
+                if (nazvanieZakazannogoInsrumenta == instrumentVMagazine.getName() && kolichestvoVZakaze > kolichestvoOtgrujenogoTovara) {
+                    /*flag = false;*/
+                    MusicalInstrument otgrujenijInstrument = musicalInstruments.remove(index);
+                    listOtgruzki.add(otgrujenijInstrument);
+                    kolichestvoOtgrujenogoTovara++;
+                }
+            }
+           /* if (flag) {
+                try {
+                    throw new WrongKeyException("Такого товара в магазине нет!");
+                } catch (WrongKeyException e) {
+                    e.printStackTrace();
+                }
+            }*/
         }
         return listOtgruzki;
     }
-}/*for (int index = musicalInstruments.size()-1; index >= 0; index--) {
-        MusicalInstrument instrumentVMagazine = musicalInstruments.get(index);
-        for (Map.Entry<String, Integer> strokaZakaza : order.entrySet()) {
-        if (strokaZakaza.getKey() == instrumentVMagazine.getName()){
-        MusicalInstrument otgrujenijInstrument = musicalInstruments.remove(index);
-        listOtgruzki.add(otgrujenijInstrument);*/
+}
