@@ -17,10 +17,6 @@ public abstract class MusicalInstrument {
         this.name = name;
     }
 
-    public void price() {
-        System.out.println(name + ": MUSIC");
-    }
-
     @Override
     public String toString() {
         return name;

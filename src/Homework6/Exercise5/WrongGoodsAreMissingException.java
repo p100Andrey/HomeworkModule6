@@ -1,9 +1,9 @@
 package Homework6.Exercise5;
 
-public class WrongKeyException extends Exception {
+public class WrongGoodsAreMissingException extends Exception {
     private String wrongKey;
 
-    public WrongKeyException(String wrongKey) {
+    public WrongGoodsAreMissingException(String wrongKey) {
         this.wrongKey = wrongKey;
     }
 

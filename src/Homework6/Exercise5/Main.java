@@ -5,21 +5,11 @@ import java.util.*;
 
 public class Main {
 
-    private static int div(int kolichestvoOtgrujenogoTovara) {
-        if (kolichestvoOtgrujenogoTovara == 0) try {
-            throw new WrongKeyException("111");
-        } catch (WrongKeyException e) {
-            e.printStackTrace();
-        }
-        return kolichestvoOtgrujenogoTovara;
-
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<MusicalInstrument> instruments = createShopContent(sc);
         print(instruments);
-        testMusicShop(sc, instruments);
+        orderMusicShop(sc, instruments);
     }
 
     private static int getUserInput(Scanner sc, String massage) {
@@ -43,11 +33,9 @@ public class Main {
         return order;
     }
 
-    private static void testMusicShop(Scanner sc, List<MusicalInstrument> instruments) {
+    private static void orderMusicShop(Scanner sc, List<MusicalInstrument> instruments) {
         while (true) {
             try {
-//                List<MusicalInstrument> instruments = createShopContent(sc);
-//                print(instruments);
                 System.out.println("Введите колличество музыкальных инструментов (для заказа)");
                 MusicShop shop = new MusicShop("Музыкальный магазин", instruments);
                 int zakazanoGitar = getUserInput(sc, "Количество гитар");
